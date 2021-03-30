@@ -23,7 +23,11 @@ namespace CoreCodeCamp.Data
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlServer(_config.GetConnectionString("CodeCamp"));
+      var connectionString = _config.GetConnectionString("CodeCamp");
+      optionsBuilder
+        .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+        .EnableSensitiveDataLogging()
+        .EnableDetailedErrors();
     }
 
     protected override void OnModelCreating(ModelBuilder bldr)
