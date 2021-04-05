@@ -9,16 +9,15 @@ using CoreCodeCamp.Model;
 
 namespace CoreCodeCamp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/camps")]
     [ApiController]
-    [ApiVersion("1.1")]
-    [ApiVersion("1.0")]
-    public class CampsController : ControllerBase
+    [ApiVersion("2.0")]
+    public class Camps2Controller : ControllerBase
     {
         private readonly ICampRepository _repository;
         private readonly IMapper _mapper;
 
-        public CampsController(ICampRepository repository, IMapper mapper)
+        public Camps2Controller(ICampRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -27,12 +26,17 @@ namespace CoreCodeCamp.Controllers
         // GET: api/Camps
         [HttpGet]
         // async Task<ActionResult<IEnumerable<Camp>>>
-        public async Task<ActionResult<CampModel[]>> GetCamps(bool includeTalks = false)
+        public async Task<IActionResult> GetCamps(bool includeTalks = false)
         {
             try
             {
                 var results = await _repository.GetAllCampsAsync(includeTalks);
-                return _mapper.Map<CampModel[]>(results);
+                var result = new
+                {
+                    Count = results.Length,
+                    Results = _mapper.Map<CampModel[]>(results)
+                };
+                return Ok(result);
             }
             catch (Exception e)
             {
