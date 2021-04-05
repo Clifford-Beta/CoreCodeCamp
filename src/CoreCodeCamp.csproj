@@ -24,11 +24,5 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="CoreCodeCampTests\UnitTest1.cs">
-      <Link>TestProject1\UnitTest1.cs</Link>
-    </Compile>
-  </ItemGroup>
-
+  
 </Project>
