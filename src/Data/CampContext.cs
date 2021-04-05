@@ -33,6 +33,26 @@ namespace CoreCodeCamp.Data
     protected override void OnModelCreating(ModelBuilder bldr)
     {
       bldr.Entity<Camp>()
+        .Property(p => p.CampId)
+        .UseMySqlIdentityColumn();
+      
+      bldr.Entity<Camp>()
+        .HasAlternateKey(p => p.Moniker)
+        .HasName("AlternateKey_Moniker");
+      
+      bldr.Entity<Location>()
+        .Property(p => p.LocationId)
+        .UseMySqlIdentityColumn();
+      
+      bldr.Entity<Speaker>()
+        .Property(p => p.SpeakerId)
+        .UseMySqlIdentityColumn();
+      
+      bldr.Entity<Talk>()
+        .Property(p => p.TalkId)
+        .UseMySqlIdentityColumn();
+      
+      bldr.Entity<Camp>()
         .HasData(new 
         {
             CampId = 1,
